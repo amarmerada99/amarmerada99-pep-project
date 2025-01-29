@@ -127,7 +127,7 @@ public class SocialMediaController {
             if(message.getMessage_text().length() >0 && message.getMessage_text().length() <256){
                 if(accountService.getAccountById(message.getPosted_by()) != null){
                     postedMessage = messageService.sendMessage(message);
-                    context.json(message);
+                    context.json(postedMessage);
                 }
             }    
             if(postedMessage != null){

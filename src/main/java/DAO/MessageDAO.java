@@ -11,7 +11,19 @@ import java.util.List;
 
 public class MessageDAO {
     public Message sendMessage(Message message){
+        java.sql.Connection connection = ConnectionUtil.getConnection();
+    try{
+        String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?,?,?);";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, message.getPosted_by());
+        preparedStatement.setString(2, message.getMessage_text());
+        preparedStatement.setLong(3, message.getTime_posted_epoch());
+        preparedStatement.executeUpdate();
         return message;
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    return null;
     }
 
     public ArrayList<Message> getAllMessages(){
